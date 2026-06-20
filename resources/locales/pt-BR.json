@@ -1,0 +1,91 @@
+{
+  "app": {
+    "name": "Ultra Recorder Pro",
+    "version": "v1.7.0 beta",
+    "recording_title": "Gravando - {name}"
+  },
+  "main": {
+    "start_recording": "&Iniciar Grava\u00e7\u00e3o",
+    "stop_recording": "&Parar Grava\u00e7\u00e3o",
+    "pause": "&Pausar",
+    "resume": "&Retomar",
+    "settings": "&Configura\u00e7\u00f5es...",
+    "language": "&Idioma...",
+    "check_updates": "&Procurar Atualiza\u00e7\u00f5es",
+    "about": "&Sobre...",
+    "status_ready": "Pronto para gravar",
+    "status_recording": "Gravando... {elapsed}",
+    "status_paused": "Pausado - {elapsed}",
+    "status_stopped": "Grava\u00e7\u00e3o finalizada",
+    "recording_started": "Grava\u00e7\u00e3o iniciada",
+    "recording_stopped": "Grava\u00e7\u00e3o parada",
+    "recording_paused": "Grava\u00e7\u00e3o pausada",
+    "recording_resumed": "Grava\u00e7\u00e3o retomada",
+    "recording_saved": "Grava\u00e7\u00e3o salva: {file}"
+  },
+  "settings": {
+    "title": "Configura\u00e7\u00f5es",
+    "input_device": "Dispositivo de entrada (microfone):",
+    "output_device": "Dispositivo de sa\u00edda (loopback):",
+    "sample_rate": "Taxa de amostragem:",
+    "hz": "Hz",
+    "audio_format": "Formato de \u00e1udio:",
+    "quality": "Qualidade:",
+    "include_tts": "Incluir voz do leitor de telas",
+    "auto_check_updates": "Buscar atualiza\u00e7\u00f5es automaticamente",
+    "test_mic": "&Testar Microfone",
+    "save": "&Salvar",
+    "cancel": "&Cancelar",
+    "no_input_devices": "Nenhum microfone encontrado",
+    "no_output_devices": "Nenhum dispositivo de sa\u00edda encontrado"
+  },
+  "language": {
+    "title": "Idioma",
+    "prompt": "Selecione o idioma do programa:",
+    "restart_prompt": "O programa precisa ser reiniciado para aplicar a tradu\u00e7\u00e3o.",
+    "restart_question": "Deseja reiniciar agora?",
+    "yes": "&Sim",
+    "no": "&N\u00e3o"
+  },
+  "about": {
+    "title": "Sobre o Ultra Recorder Pro",
+    "description": "Um gravador de \u00e1udio acess\u00edvel para usu\u00e1rios de leitores de tela.",
+    "developer": "Desenvolvedor: {dev}",
+    "version_label": "Vers\u00e3o: {version}",
+    "usage_title": "Navega\u00e7\u00e3o:",
+    "usage_tab": "Tab/Shift+Tab: Navegar entre controles",
+    "usage_arrows": "Setas: Navegar em listas e combos",
+    "usage_enter": "Enter: Ativar bot\u00e3o / confirmar",
+    "usage_space": "Espa\u00e7o: Alternar checkbox",
+    "usage_esc": "Esc: Fechar di\u00e1logos",
+    "close": "&Fechar"
+  },
+  "mic_test": {
+    "title": "Teste de Microfone",
+    "recording": "Gravando por 5 segundos...",
+    "playing": "Reproduzindo...",
+    "done": "Teste de microfone conclu\u00eddo."
+  },
+  "updater": {
+    "checking": "Verificando atualiza\u00e7\u00f5es...",
+    "already_latest": "Voc\u00ea j\u00e1 est\u00e1 na vers\u00e3o mais recente ({version}).",
+    "new_version_title": "Atualiza\u00e7\u00e3o Dispon\u00edvel",
+    "new_version_msg": "Vers\u00e3o {version} dispon\u00edvel!\n\nNovidades:\n{changelog}\n\nBaixar e instalar agora?",
+    "downloading": "Baixando atualiza\u00e7\u00e3o... {progress}%",
+    "downloaded": "Atualiza\u00e7\u00e3o baixada. Instalando...",
+    "installed": "Atualiza\u00e7\u00e3o instalada com sucesso!",
+    "error_network": "N\u00e3o foi poss\u00edvel verificar atualiza\u00e7\u00f5es. Verifique sua conex\u00e3o.",
+    "error_checksum": "Download corrompido. Tente novamente.",
+    "button_download": "&Sim",
+    "button_cancel": "&N\u00e3o"
+  },
+  "errors": {
+    "no_mic": "Nenhum microfone encontrado. Conecte um microfone.",
+    "no_loopback": "Falha ao capturar \u00e1udio do sistema. O dispositivo pode estar em modo exclusivo.",
+    "ffmpeg_missing": "FFmpeg necess\u00e1rio para convers\u00e3o de \u00e1udio. Baixando...",
+    "ffmpeg_failed": "N\u00e3o foi poss\u00edvel baixar o FFmpeg. Usando WAV como fallback.",
+    "permission": "Execute como administrador para gravar \u00e1udio do sistema.",
+    "folder_created": "Pasta de grava\u00e7\u00f5es criada.",
+    "generic": "Ocorreu um erro: {error}"
+  }
+}

@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.spec
+*.exe
+*.zip
+ffmpeg/
+.DS_Store
+Thumbs.db
+*.log
+__temp_*.wav
+_update_install.bat

@@ -1,0 +1,91 @@
+{
+  "app": {
+    "name": "Ultra Recorder Pro",
+    "version": "v1.7.0 beta",
+    "recording_title": "Grabando - {name}"
+  },
+  "main": {
+    "start_recording": "&Iniciar Grabaci\u00f3n",
+    "stop_recording": "&Detener Grabaci\u00f3n",
+    "pause": "&Pausar",
+    "resume": "&Reanudar",
+    "settings": "&Configuraci\u00f3n...",
+    "language": "&Idioma...",
+    "check_updates": "&Buscar Actualizaciones",
+    "about": "&Acerca de...",
+    "status_ready": "Listo para grabar",
+    "status_recording": "Grabando... {elapsed}",
+    "status_paused": "Pausado - {elapsed}",
+    "status_stopped": "Grabaci\u00f3n finalizada",
+    "recording_started": "Grabaci\u00f3n iniciada",
+    "recording_stopped": "Grabaci\u00f3n detenida",
+    "recording_paused": "Grabaci\u00f3n pausada",
+    "recording_resumed": "Grabaci\u00f3n reanudada",
+    "recording_saved": "Grabaci\u00f3n guardada: {file}"
+  },
+  "settings": {
+    "title": "Configuraci\u00f3n",
+    "input_device": "Dispositivo de entrada (micr\u00f3fono):",
+    "output_device": "Dispositivo de salida (loopback):",
+    "sample_rate": "Frecuencia de muestreo:",
+    "hz": "Hz",
+    "audio_format": "Formato de audio:",
+    "quality": "Calidad:",
+    "include_tts": "Incluir voz del lector de pantalla",
+    "auto_check_updates": "Buscar actualizaciones autom\u00e1ticamente",
+    "test_mic": "&Probar Micr\u00f3fono",
+    "save": "&Guardar",
+    "cancel": "&Cancelar",
+    "no_input_devices": "No se encontraron micr\u00f3fonos",
+    "no_output_devices": "No se encontraron dispositivos de salida"
+  },
+  "language": {
+    "title": "Idioma",
+    "prompt": "Seleccione el idioma del programa:",
+    "restart_prompt": "El programa debe reiniciarse para aplicar el cambio de idioma.",
+    "restart_question": "\u00bfReiniciar ahora?",
+    "yes": "&S\u00ed",
+    "no": "&No"
+  },
+  "about": {
+    "title": "Acerca de Ultra Recorder Pro",
+    "description": "Un grabador de audio accesible para usuarios de lectores de pantalla.",
+    "developer": "Desarrollador: {dev}",
+    "version_label": "Versi\u00f3n: {version}",
+    "usage_title": "Navegaci\u00f3n:",
+    "usage_tab": "Tab/Shift+Tab: Navegar entre controles",
+    "usage_arrows": "Flechas: Navegar en listas y combos",
+    "usage_enter": "Enter: Activar bot\u00f3n / confirmar",
+    "usage_space": "Espacio: Alternar casilla",
+    "usage_esc": "Esc: Cerrar di\u00e1logos",
+    "close": "&Cerrar"
+  },
+  "mic_test": {
+    "title": "Prueba de Micr\u00f3fono",
+    "recording": "Grabando durante 5 segundos...",
+    "playing": "Reproduciendo...",
+    "done": "Prueba de micr\u00f3fono completa."
+  },
+  "updater": {
+    "checking": "Buscando actualizaciones...",
+    "already_latest": "Ya tienes la \u00faltima versi\u00f3n ({version}).",
+    "new_version_title": "Actualizaci\u00f3n Disponible",
+    "new_version_msg": "\u00a1Versi\u00f3n {version} disponible!\n\nNovedades:\n{changelog}\n\n\u00bfDescargar e instalar ahora?",
+    "downloading": "Descargando actualizaci\u00f3n... {progress}%",
+    "downloaded": "Actualizaci\u00f3n descargada. Instalando...",
+    "installed": "\u00a1Actualizaci\u00f3n instalada con \u00e9xito!",
+    "error_network": "No se pudieron buscar actualizaciones. Verifica tu conexi\u00f3n.",
+    "error_checksum": "Descarga corrupta. Intenta de nuevo.",
+    "button_download": "&S\u00ed",
+    "button_cancel": "&No"
+  },
+  "errors": {
+    "no_mic": "No se encontr\u00f3 ning\u00fan micr\u00f3fono. Conecta un micr\u00f3fono.",
+    "no_loopback": "Error al capturar audio del sistema. El dispositivo puede estar en modo exclusivo.",
+    "ffmpeg_missing": "FFmpeg necesario para conversi\u00f3n de audio. Descargando...",
+    "ffmpeg_failed": "No se pudo descargar FFmpeg. Usando WAV como alternativa.",
+    "permission": "Ejecuta como administrador para grabar audio del sistema.",
+    "folder_created": "Carpeta de grabaciones creada.",
+    "generic": "Ocurri\u00f3 un error: {error}"
+  }
+}

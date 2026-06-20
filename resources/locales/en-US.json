@@ -1,0 +1,91 @@
+{
+  "app": {
+    "name": "Ultra Recorder Pro",
+    "version": "v1.7.0 beta",
+    "recording_title": "Recording - {name}"
+  },
+  "main": {
+    "start_recording": "Start &Recording",
+    "stop_recording": "S&top Recording",
+    "pause": "&Pause",
+    "resume": "&Resume",
+    "settings": "&Settings...",
+    "language": "&Language...",
+    "check_updates": "Check for &Updates",
+    "about": "&About...",
+    "status_ready": "Ready to record",
+    "status_recording": "Recording... {elapsed}",
+    "status_paused": "Paused - {elapsed}",
+    "status_stopped": "Recording finished",
+    "recording_started": "Recording started",
+    "recording_stopped": "Recording stopped",
+    "recording_paused": "Recording paused",
+    "recording_resumed": "Recording resumed",
+    "recording_saved": "Recording saved: {file}"
+  },
+  "settings": {
+    "title": "Settings",
+    "input_device": "Input device (microphone):",
+    "output_device": "Output device (loopback):",
+    "sample_rate": "Sample rate:",
+    "hz": "Hz",
+    "audio_format": "Audio format:",
+    "quality": "Quality:",
+    "include_tts": "Include screen reader voice",
+    "auto_check_updates": "Check for updates automatically",
+    "test_mic": "&Test Microphone",
+    "save": "&Save",
+    "cancel": "&Cancel",
+    "no_input_devices": "No input devices found",
+    "no_output_devices": "No output devices found"
+  },
+  "language": {
+    "title": "Language",
+    "prompt": "Select program language:",
+    "restart_prompt": "The program needs to restart to apply the language change.",
+    "restart_question": "Restart now?",
+    "yes": "&Yes",
+    "no": "&No"
+  },
+  "about": {
+    "title": "About Ultra Recorder Pro",
+    "description": "An accessible audio recorder for screen reader users.",
+    "developer": "Developer: {dev}",
+    "version_label": "Version: {version}",
+    "usage_title": "Navigation:",
+    "usage_tab": "Tab/Shift+Tab: Navigate between controls",
+    "usage_arrows": "Arrow keys: Navigate lists and combo boxes",
+    "usage_enter": "Enter: Activate button / confirm",
+    "usage_space": "Space: Toggle checkbox",
+    "usage_esc": "Esc: Close dialogs",
+    "close": "&Close"
+  },
+  "mic_test": {
+    "title": "Microphone Test",
+    "recording": "Recording for 5 seconds...",
+    "playing": "Playing back...",
+    "done": "Microphone test complete."
+  },
+  "updater": {
+    "checking": "Checking for updates...",
+    "already_latest": "You already have the latest version ({version}).",
+    "new_version_title": "Update Available",
+    "new_version_msg": "Version {version} is available!\n\nWhat's new:\n{changelog}\n\nDownload and install now?",
+    "downloading": "Downloading update... {progress}%",
+    "downloaded": "Update downloaded. Installing...",
+    "installed": "Update installed successfully!",
+    "error_network": "Could not check for updates. Check your connection.",
+    "error_checksum": "Download corrupted. Please try again.",
+    "button_download": "&Yes",
+    "button_cancel": "&No"
+  },
+  "errors": {
+    "no_mic": "No microphone found. Please connect a microphone.",
+    "no_loopback": "System audio recording failed. The device may be in exclusive mode.",
+    "ffmpeg_missing": "FFmpeg required for audio conversion. Downloading...",
+    "ffmpeg_failed": "Could not download FFmpeg. Falling back to WAV.",
+    "permission": "Run as administrator for system audio recording.",
+    "folder_created": "Recordings folder created.",
+    "generic": "An error occurred: {error}"
+  }
+}
