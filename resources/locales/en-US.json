@@ -2,7 +2,9 @@
   "app": {
     "name": "Ultra Recorder Pro",
     "version": "v1.7.0 beta",
-    "recording_title": "Recording - {name}"
+    "recording_title": "Recording - {name}",
+    "welcome_title": "Welcome to Ultra Recorder Pro",
+    "welcome_message": "Welcome to Ultra Recorder Pro, an intelligent audio recorder developed by blind people for blind people.\n\nThis application allows you to record system audio, microphone audio, or both simultaneously. It is fully accessible with NVDA and JAWS screen readers.\n\nFeatures:\n\u2022 System audio recording via Stereo Mix / WASAPI loopback\n\u2022 Microphone recording\n\u2022 Mix both sources or record individually\n\u2022 Automatic screen reader voice exclusion\n\u2022 Export to WAV, MP3, Opus, FLAC, OGG\n\u2022 Multi-language support (English, Portuguese, Spanish)\n\u2022 Full keyboard navigation\n\nDeveloper: Stefan, Stefan Games Productions"
   },
   "main": {
     "start_recording": "Start &Recording",
@@ -24,6 +26,10 @@
   },
   "settings": {
     "title": "Settings",
+    "recording_mode": "Recording mode",
+    "mode_system": "System audio only",
+    "mode_microphone": "Microphone only",
+    "mode_both": "System + Microphone (mix)",
     "input_device": "Input device (microphone):",
     "output_device": "Output device (loopback):",
     "sample_rate": "Sample rate:",
@@ -47,15 +53,6 @@
   },
   "about": {
     "title": "About Ultra Recorder Pro",
-    "description": "An accessible audio recorder for screen reader users.",
-    "developer": "Developer: {dev}",
-    "version_label": "Version: {version}",
-    "usage_title": "Navigation:",
-    "usage_tab": "Tab/Shift+Tab: Navigate between controls",
-    "usage_arrows": "Arrow keys: Navigate lists and combo boxes",
-    "usage_enter": "Enter: Activate button / confirm",
-    "usage_space": "Space: Toggle checkbox",
-    "usage_esc": "Esc: Close dialogs",
     "close": "&Close"
   },
   "mic_test": {

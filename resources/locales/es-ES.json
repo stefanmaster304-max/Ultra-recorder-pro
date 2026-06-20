@@ -2,7 +2,9 @@
   "app": {
     "name": "Ultra Recorder Pro",
     "version": "v1.7.0 beta",
-    "recording_title": "Grabando - {name}"
+    "recording_title": "Grabando - {name}",
+    "welcome_title": "Bienvenido a Ultra Recorder Pro",
+    "welcome_message": "Bienvenido a Ultra Recorder Pro, un grabador de audio inteligente desarrollado de ciego para ciego.\n\nEsta aplicaci\u00f3n permite grabar el sonido del sistema, el micr\u00f3fono, o ambos simult\u00e1neamente. Es totalmente accesible con los lectores de pantalla NVDA y JAWS.\n\nCaracter\u00edsticas:\n\u2022 Grabaci\u00f3n de audio del sistema via Stereo Mix / WASAPI loopback\n\u2022 Grabaci\u00f3n de micr\u00f3fono\n\u2022 Mezcla de ambas fuentes o grabaci\u00f3n individual\n\u2022 Exclusi\u00f3n autom\u00e1tica de la voz del lector de pantalla\n\u2022 Exportaci\u00f3n a WAV, MP3, Opus, FLAC, OGG\n\u2022 Soporte multi-idioma\n\u2022 Navegaci\u00f3n completa por teclado\n\nDesarrollador: Stefan, Stefan Games Productions"
   },
   "main": {
     "start_recording": "&Iniciar Grabaci\u00f3n",
@@ -24,6 +26,10 @@
   },
   "settings": {
     "title": "Configuraci\u00f3n",
+    "recording_mode": "Modo de grabaci\u00f3n",
+    "mode_system": "Solo audio del sistema",
+    "mode_microphone": "Solo micr\u00f3fono",
+    "mode_both": "Sistema + Micr\u00f3fono (mezcla)",
     "input_device": "Dispositivo de entrada (micr\u00f3fono):",
     "output_device": "Dispositivo de salida (loopback):",
     "sample_rate": "Frecuencia de muestreo:",
@@ -47,15 +53,6 @@
   },
   "about": {
     "title": "Acerca de Ultra Recorder Pro",
-    "description": "Un grabador de audio accesible para usuarios de lectores de pantalla.",
-    "developer": "Desarrollador: {dev}",
-    "version_label": "Versi\u00f3n: {version}",
-    "usage_title": "Navegaci\u00f3n:",
-    "usage_tab": "Tab/Shift+Tab: Navegar entre controles",
-    "usage_arrows": "Flechas: Navegar en listas y combos",
-    "usage_enter": "Enter: Activar bot\u00f3n / confirmar",
-    "usage_space": "Espacio: Alternar casilla",
-    "usage_esc": "Esc: Cerrar di\u00e1logos",
     "close": "&Cerrar"
   },
   "mic_test": {

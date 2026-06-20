@@ -3,26 +3,44 @@ import threading
 from utils.translator import _
 from utils.config import config
 from utils.constants import SAMPLE_RATES, FORMATS
-from core.devices import get_input_devices, get_output_devices, get_device_name, get_default_input_device, get_default_output_device
+from core.devices import get_input_devices, get_output_devices
 
 
 class SettingsDialog(wx.Dialog):
     def __init__(self, parent):
-        super().__init__(parent, title=_("settings.title"), size=(500, 520))
+        super().__init__(parent, title=_("settings.title"), size=(520, 560))
         self.panel = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)
+        self._create_mode_section(sizer)
+        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 8)
         self._create_input_device_section(sizer)
-        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 8)
         self._create_output_device_section(sizer)
-        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 8)
         self._create_format_section(sizer)
-        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 8)
         self._create_misc_section(sizer)
-        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(wx.StaticLine(self.panel), 0, wx.EXPAND | wx.ALL, 8)
         self._create_buttons(sizer)
         self.panel.SetSizer(sizer)
         self._load_settings()
         self.Centre()
+
+    def _create_mode_section(self, sizer):
+        box = wx.StaticBox(self.panel, label=_("settings.recording_mode"))
+        box_sizer = wx.StaticBoxSizer(box, wx.VERTICAL)
+        self.mode_radio = wx.RadioBox(
+            self.panel,
+            label="",
+            choices=[
+                _("settings.mode_system"),
+                _("settings.mode_microphone"),
+                _("settings.mode_both"),
+            ],
+            style=wx.RA_VERTICAL,
+        )
+        box_sizer.Add(self.mode_radio, 0, wx.EXPAND | wx.ALL, 5)
+        sizer.Add(box_sizer, 0, wx.EXPAND | wx.ALL, 5)
 
     def _create_input_device_section(self, sizer):
         box = wx.StaticBox(self.panel, label=_("settings.input_device"))
@@ -100,10 +118,13 @@ class SettingsDialog(wx.Dialog):
             self.quality_combo.SetSelection(0)
 
     def _load_settings(self):
+        mode = config.get("recording_mode", "both")
+        mode_map = {"system": 0, "microphone": 1, "both": 2}
+        self.mode_radio.SetSelection(mode_map.get(mode, 2))
         if self.input_devices:
             dev_id = config.get("input_device")
             for i, d in enumerate(self.input_devices):
-                if d["index"] == dev_id or dev_id is None and i == 0:
+                if d["index"] == dev_id or (dev_id is None and i == 0):
                     self.input_combo.SetSelection(i)
                     break
             if self.input_combo.GetSelection() == wx.NOT_FOUND:
@@ -111,15 +132,14 @@ class SettingsDialog(wx.Dialog):
         if self.output_devices:
             dev_id = config.get("output_device")
             for i, d in enumerate(self.output_devices):
-                if d["index"] == dev_id or dev_id is None and i == 0:
+                if d["index"] == dev_id or (dev_id is None and i == 0):
                     self.output_combo.SetSelection(i)
                     break
             if self.output_combo.GetSelection() == wx.NOT_FOUND:
                 self.output_combo.SetSelection(0)
         rate = config.get("sample_rate", 48000)
-        rate_str = f"{rate} {_('settings.hz')}"
         for i, r in enumerate(SAMPLE_RATES):
-            if f"{r} {_('settings.hz')}" == rate_str:
+            if r == rate:
                 self.rate_combo.SetSelection(i)
                 break
         if self.rate_combo.GetSelection() == wx.NOT_FOUND:
@@ -143,6 +163,8 @@ class SettingsDialog(wx.Dialog):
         self.tts_check.SetValue(config.get("include_tts", True))
 
     def apply_settings(self):
+        mode_map = {0: "system", 1: "microphone", 2: "both"}
+        config.set("recording_mode", mode_map.get(self.mode_radio.GetSelection(), "both"))
         if self.input_devices and self.input_combo.GetSelection() >= 0:
             idx = self.input_combo.GetSelection()
             config.set("input_device", self.input_devices[idx]["index"])
@@ -158,10 +180,7 @@ class SettingsDialog(wx.Dialog):
 
     def _on_test_mic(self, event):
         self.btn_test.Disable()
-        self.btn_test.SetLabel(_("mic_test.recording"))
         wx.Yield()
-        import sounddevice as sd
-        import numpy as np
         threading.Thread(target=self._do_mic_test, daemon=True).start()
 
     def _do_mic_test(self):
@@ -170,10 +189,11 @@ class SettingsDialog(wx.Dialog):
         try:
             duration = 5
             sr = config.get("sample_rate", 48000)
+            device = None
             if self.input_devices and self.input_combo.GetSelection() >= 0:
-                device = self.input_devices[self.input_combo.GetSelection()]["index"]
-            else:
-                device = None
+                idx = self.input_combo.GetSelection()
+                device = self.input_devices[idx]["index"]
+            wx.CallAfter(self.btn_test.SetLabel, _("mic_test.recording"))
             recording = sd.rec(int(duration * sr), samplerate=sr, channels=2, device=device, dtype=np.float32)
             sd.wait()
             wx.CallAfter(self.btn_test.SetLabel, _("mic_test.playing"))

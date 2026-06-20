@@ -4,37 +4,39 @@ import sounddevice as sd
 def get_input_devices():
     devices = sd.query_devices()
     hostapis = sd.query_hostapis()
-    return [d for d in devices if _is_input_device(d, hostapis)]
+    return [d for d in devices if _is_input_device(d)]
 
 
 def get_output_devices():
     devices = sd.query_devices()
-    hostapis = sd.query_hostapis()
-    return [d for d in devices if _is_output_device(d, hostapis)]
+    return [d for d in devices if _is_output_device(d)]
 
 
-def _is_input_device(device, hostapis):
+def _is_input_device(device):
     if device["max_input_channels"] <= 0:
         return False
-    if device["max_output_channels"] > 0 and device["max_input_channels"] <= device["max_output_channels"]:
+    if device["max_output_channels"] >= device["max_input_channels"] and device["max_output_channels"] > 0:
         return False
-    hostapi = hostapis[device["hostapi"]]
     name = device["name"].lower()
-    if "output" in name or "speaker" in name or "alto-falante" in name or "altavoz" in name or "fone" in name:
-        if "microphone" not in name and "mic" not in name:
-            return False
+    output_keywords = ["speaker", "alto-falante", "altavoz", "headphone", "fone", "headset", "output"]
+    for kw in output_keywords:
+        if kw in name:
+            input_keywords = ["microphone", "mic", "mix", "stereo", "est\u00e9reo", "input"]
+            if not any(ik in name for ik in input_keywords):
+                return False
     return True
 
 
-def _is_output_device(device, hostapis):
+def _is_output_device(device):
     if device["max_output_channels"] <= 0:
         return False
-    if device["max_input_channels"] > 0 and device["max_output_channels"] <= device["max_input_channels"]:
+    if device["max_input_channels"] >= device["max_output_channels"] and device["max_input_channels"] > 0:
         return False
-    hostapi = hostapis[device["hostapi"]]
     name = device["name"].lower()
-    if "microphone" in name or "mic" in name or "input" in name:
-        return False
+    input_keywords = ["microphone", "mic", "input"]
+    for kw in input_keywords:
+        if kw in name:
+            return False
     return True
 
 

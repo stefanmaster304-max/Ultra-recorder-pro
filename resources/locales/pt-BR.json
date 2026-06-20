@@ -2,7 +2,9 @@
   "app": {
     "name": "Ultra Recorder Pro",
     "version": "v1.7.0 beta",
-    "recording_title": "Gravando - {name}"
+    "recording_title": "Gravando - {name}",
+    "welcome_title": "Bem-vindo ao Ultra Recorder Pro",
+    "welcome_message": "Bem-vindo ao Ultra Recorder Pro, um gravador de \u00e1udio inteligente desenvolvido de cego para cego.\n\nEste aplicativo permite gravar o som do sistema, o microfone, ou ambos simultaneamente. \u00c9 totalmente acess\u00edvel com os leitores de tela NVDA e JAWS.\n\nRecursos:\n\u2022 Grava\u00e7\u00e3o do som do sistema via Stereo Mix / WASAPI loopback\n\u2022 Grava\u00e7\u00e3o do microfone\n\u2022 Mixagem das duas fontes ou grava\u00e7\u00e3o individual\n\u2022 Exclus\u00e3o autom\u00e1tica da voz do leitor de telas\n\u2022 Exporta\u00e7\u00e3o para WAV, MP3, Opus, FLAC, OGG\n\u2022 Suporte a m\u00faltiplos idiomas\n\u2022 Navega\u00e7\u00e3o completa por teclado\n\nDesenvolvedor: Stefan, Stefan Games Productions"
   },
   "main": {
     "start_recording": "&Iniciar Grava\u00e7\u00e3o",
@@ -24,6 +26,10 @@
   },
   "settings": {
     "title": "Configura\u00e7\u00f5es",
+    "recording_mode": "Modo de grava\u00e7\u00e3o",
+    "mode_system": "Som do sistema apenas",
+    "mode_microphone": "Microfone apenas",
+    "mode_both": "Sistema + Microfone (mix)",
     "input_device": "Dispositivo de entrada (microfone):",
     "output_device": "Dispositivo de sa\u00edda (loopback):",
     "sample_rate": "Taxa de amostragem:",
@@ -47,15 +53,6 @@
   },
   "about": {
     "title": "Sobre o Ultra Recorder Pro",
-    "description": "Um gravador de \u00e1udio acess\u00edvel para usu\u00e1rios de leitores de tela.",
-    "developer": "Desenvolvedor: {dev}",
-    "version_label": "Vers\u00e3o: {version}",
-    "usage_title": "Navega\u00e7\u00e3o:",
-    "usage_tab": "Tab/Shift+Tab: Navegar entre controles",
-    "usage_arrows": "Setas: Navegar em listas e combos",
-    "usage_enter": "Enter: Ativar bot\u00e3o / confirmar",
-    "usage_space": "Espa\u00e7o: Alternar checkbox",
-    "usage_esc": "Esc: Fechar di\u00e1logos",
     "close": "&Fechar"
   },
   "mic_test": {
