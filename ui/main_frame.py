@@ -1,25 +1,21 @@
 import wx
 import threading
-import time
-from pathlib import Path
 from utils.translator import _, set_locale, get_translator
 from utils.config import config
 from utils.constants import APP_NAME, APP_VERSION_FULL, APP_DEV
 from utils.sounds import play_startup, play_shutdown
 from utils.announcer import speak
-from utils.ffmpeg_handler import is_ffmpeg_available, download_ffmpeg
+from utils.ffmpeg_handler import is_ffmpeg_available
 from core.engine import RecordingEngine, RecordingMode, EngineState
 from core.encoder import save_recording
-from core.devices import get_input_devices, get_output_devices
 from ui.settings_dialog import SettingsDialog
 from ui.about_dialog import AboutDialog
 from ui.language_dialog import LanguageDialog
-from updater.update_checker import check_for_updates
 
 
 class MainFrame(wx.Frame):
     def __init__(self):
-        super().__init__(None, title=f"{APP_NAME} {APP_VERSION_FULL}", size=(500, 420))
+        super().__init__(None, title=f"{APP_NAME} {APP_VERSION_FULL}", size=(500, 400))
         self.engine = RecordingEngine()
         self.engine.set_on_state_change(self._on_engine_state)
         self._timer_running = False
@@ -29,7 +25,7 @@ class MainFrame(wx.Frame):
         self._layout_buttons_idle()
         self.Centre()
         self.Show()
-        self._post_init()
+        play_startup()
 
     def _setup_ui(self):
         self.panel = wx.Panel(self)
@@ -46,7 +42,6 @@ class MainFrame(wx.Frame):
         self.btn_stop = wx.Button(self.panel, wx.ID_ANY, _("main.stop_recording"))
         self.btn_settings = wx.Button(self.panel, wx.ID_ANY, _("main.settings"))
         self.btn_language = wx.Button(self.panel, wx.ID_ANY, _("main.language"))
-        self.btn_updates = wx.Button(self.panel, wx.ID_ANY, _("main.check_updates"))
         self.btn_about = wx.Button(self.panel, wx.ID_ANY, _("main.about"))
         self.control_sizer = wx.BoxSizer(wx.VERTICAL)
         self.btn_pause.Hide()
@@ -56,7 +51,6 @@ class MainFrame(wx.Frame):
         self.control_sizer.Add(self.btn_stop, 0, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 4)
         self.control_sizer.Add(self.btn_settings, 0, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 4)
         self.control_sizer.Add(self.btn_language, 0, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 4)
-        self.control_sizer.Add(self.btn_updates, 0, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 4)
         self.control_sizer.Add(self.btn_about, 0, wx.ALIGN_CENTER | wx.TOP | wx.BOTTOM, 4)
         self.main_sizer.Add(self.control_sizer, 0, wx.ALIGN_CENTER, 0)
         self.main_sizer.AddStretchSpacer(1)
@@ -68,7 +62,6 @@ class MainFrame(wx.Frame):
         self.btn_stop.Bind(wx.EVT_BUTTON, self._on_stop)
         self.btn_settings.Bind(wx.EVT_BUTTON, self._on_settings)
         self.btn_language.Bind(wx.EVT_BUTTON, self._on_language)
-        self.btn_updates.Bind(wx.EVT_BUTTON, self._on_updates)
         self.btn_about.Bind(wx.EVT_BUTTON, self._on_about)
         self.Bind(wx.EVT_CLOSE, self._on_close)
 
@@ -77,25 +70,9 @@ class MainFrame(wx.Frame):
             (wx.ACCEL_ALT, ord("R"), self.btn_record.GetId()),
             (wx.ACCEL_ALT, ord("C"), self.btn_settings.GetId()),
             (wx.ACCEL_ALT, ord("L"), self.btn_language.GetId()),
-            (wx.ACCEL_ALT, ord("U"), self.btn_updates.GetId()),
             (wx.ACCEL_ALT, ord("A"), self.btn_about.GetId()),
         ]
-        if self.btn_pause.IsShown():
-            entries.append((wx.ACCEL_ALT, ord("P"), self.btn_pause.GetId()))
         self.SetAcceleratorTable(wx.AcceleratorTable(entries))
-
-    def _post_init(self):
-        play_startup()
-        if config.get("auto_check_updates", True):
-            threading.Thread(target=self._auto_check_updates, daemon=True).start()
-
-    def _auto_check_updates(self):
-        try:
-            result = check_for_updates()
-            if result and result.get("available"):
-                wx.CallAfter(self._show_update_prompt, result)
-        except Exception:
-            pass
 
     def _layout_buttons_idle(self):
         self.btn_record.Show()
@@ -119,7 +96,6 @@ class MainFrame(wx.Frame):
     def _layout_buttons_paused(self):
         self.btn_pause.SetLabel(_("main.resume"))
         self.control_sizer.Layout()
-        self.SetTitle(f"{_('app.recording_title', name=APP_NAME)} - {_('main.status_paused', elapsed='')}")
 
     def _on_engine_state(self, state):
         if state == EngineState.IDLE:
@@ -130,12 +106,10 @@ class MainFrame(wx.Frame):
             self._layout_buttons_idle()
             self.btn_settings.Enable()
             self.btn_language.Enable()
-            self.btn_updates.Enable()
             self.btn_about.Enable()
         elif state == EngineState.RECORDING:
             self.btn_settings.Disable()
             self.btn_language.Disable()
-            self.btn_updates.Disable()
             self.btn_about.Disable()
             self._layout_buttons_recording()
             self._start_timer()
@@ -171,9 +145,8 @@ class MainFrame(wx.Frame):
         else:
             eng_mode = RecordingMode.BOTH
         input_dev = config.get("input_device")
-        output_dev = config.get("output_device")
         sample_rate = config.get("sample_rate", 48000)
-        self.engine.start(mode=eng_mode, input_device=input_dev, output_device=output_dev, sample_rate=sample_rate)
+        self.engine.start(mode=eng_mode, input_device=input_dev, sample_rate=sample_rate)
         speak(_("main.recording_started"))
 
     def _on_pause(self, event):
@@ -193,7 +166,6 @@ class MainFrame(wx.Frame):
         self._process_recording(system_data, mic_data)
 
     def _process_recording(self, system_data, mic_data):
-        import numpy as np
         mode = config.get("recording_mode", "both")
         audio_format = config.get("audio_format", "MP3")
         quality = config.get("quality", "320k")
@@ -202,19 +174,9 @@ class MainFrame(wx.Frame):
             dlg = wx.MessageDialog(self, _("errors.ffmpeg_missing"), APP_NAME, wx.OK | wx.ICON_INFORMATION)
             dlg.ShowModal()
             dlg.Destroy()
-            wx.CallAfter(self._download_ffmpeg_and_save, system_data, mic_data, mode, audio_format, quality, sample_rate)
+            self.status_bar.SetStatusText(_("main.status_ready"))
             return
         self._do_save(system_data, mic_data, mode, audio_format, quality, sample_rate)
-
-    def _download_ffmpeg_and_save(self, system_data, mic_data, mode, audio_format, quality, sample_rate):
-        success = download_ffmpeg()
-        if success:
-            self._do_save(system_data, mic_data, mode, audio_format, quality, sample_rate)
-        else:
-            dlg = wx.MessageDialog(self, _("errors.ffmpeg_failed"), APP_NAME, wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self._do_save(system_data, mic_data, mode, "WAV", quality, sample_rate)
 
     def _do_save(self, system_data, mic_data, mode, audio_format, quality, sample_rate):
         try:
@@ -244,74 +206,15 @@ class MainFrame(wx.Frame):
             current = config.get("language", "en-US")
             if selected != current:
                 config.set("language", selected)
-                msg = _("language.restart_question")
-                msg_dlg = wx.MessageDialog(self, _("language.restart_prompt") + f"\n\n{msg}", _("language.title"), wx.YES_NO | wx.ICON_QUESTION)
-                if msg_dlg.ShowModal() == wx.ID_YES:
-                    msg_dlg.Destroy()
+                dlg2 = wx.MessageDialog(self, _("language.restart_prompt") + "\n\n" + _("language.restart_question"), _("language.title"), wx.YES_NO | wx.ICON_QUESTION)
+                if dlg2.ShowModal() == wx.ID_YES:
+                    dlg2.Destroy()
                     import subprocess, sys
                     subprocess.Popen([sys.executable or sys.argv[0]])
                     self.Close()
                 else:
-                    msg_dlg.Destroy()
+                    dlg2.Destroy()
         dlg.Destroy()
-
-    def _on_updates(self, event):
-        from updater.update_checker import check_for_updates
-        from updater.update_downloader import download_update
-        from updater.update_installer import install_update
-        from utils.constants import APP_VERSION
-        self.status_bar.SetStatusText(_("updater.checking"))
-        self.btn_updates.Disable()
-        result = check_for_updates()
-        self.btn_updates.Enable()
-        if result is None:
-            dlg = wx.MessageDialog(self, _("updater.error_network"), APP_NAME, wx.OK | wx.ICON_WARNING)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self.status_bar.SetStatusText(_("main.status_ready"))
-            return
-        if not result.get("available"):
-            dlg = wx.MessageDialog(self, _("updater.already_latest", version=APP_VERSION), APP_NAME, wx.OK | wx.ICON_INFORMATION)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self.status_bar.SetStatusText(_("main.status_ready"))
-            return
-        self._show_update_prompt(result)
-
-    def _show_update_prompt(self, result):
-        changelog = "\n".join(result.get("changelog", []))
-        msg = _("updater.new_version_msg", version=result["version"], changelog=changelog or _("updater.new_version_title"))
-        dlg = wx.MessageDialog(self, msg, _("updater.new_version_title"), wx.YES_NO | wx.ICON_QUESTION)
-        if dlg.ShowModal() == wx.ID_YES:
-            dlg.Destroy()
-            self._perform_update(result)
-        else:
-            dlg.Destroy()
-
-    def _perform_update(self, result):
-        self.status_bar.SetStatusText(_("updater.downloading", progress=0))
-        def progress_callback(pct):
-            wx.CallAfter(self.status_bar.SetStatusText, _("updater.downloading", progress=pct))
-        zip_path = download_update(result["download_url"], progress_callback)
-        if zip_path is None:
-            dlg = wx.MessageDialog(self, _("updater.error_network"), APP_NAME, wx.OK | wx.ICON_ERROR)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self.status_bar.SetStatusText(_("main.status_ready"))
-            return
-        self.status_bar.SetStatusText(_("updater.downloaded"))
-        wx.Yield()
-        success = install_update(zip_path)
-        if success:
-            dlg = wx.MessageDialog(self, _("updater.installed"), APP_NAME, wx.OK | wx.ICON_INFORMATION)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self.Close()
-        else:
-            dlg = wx.MessageDialog(self, _("updater.error_checksum"), APP_NAME, wx.OK | wx.ICON_ERROR)
-            dlg.ShowModal()
-            dlg.Destroy()
-            self.status_bar.SetStatusText(_("main.status_ready"))
 
     def _on_about(self, event):
         dlg = AboutDialog(self)

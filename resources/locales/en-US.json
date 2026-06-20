@@ -11,7 +11,6 @@
     "resume": "&Resume",
     "settings": "&Settings...",
     "language": "&Language...",
-    "check_updates": "Check for &Updates",
     "about": "&About...",
     "status_ready": "Ready to record",
     "status_recording": "Recording... {elapsed}",
@@ -32,7 +31,6 @@
     "audio_format": "Audio format:",
     "quality": "Quality:",
     "include_tts": "Include screen reader voice",
-    "auto_check_updates": "Check for updates automatically",
     "test_mic": "&Test Microphone",
     "save": "&Save",
     "cancel": "&Cancel",
@@ -66,24 +64,10 @@
     "playing": "Playing back...",
     "done": "Microphone test complete."
   },
-  "updater": {
-    "checking": "Checking for updates...",
-    "already_latest": "You already have the latest version ({version}).",
-    "new_version_title": "Update Available",
-    "new_version_msg": "Version {version} is available!\n\nWhat's new:\n{changelog}\n\nDownload and install now?",
-    "downloading": "Downloading update... {progress}%",
-    "downloaded": "Update downloaded. Installing...",
-    "installed": "Update installed successfully!",
-    "error_network": "Could not check for updates. Check your connection.",
-    "error_checksum": "Download corrupted. Please try again.",
-    "button_download": "&Yes",
-    "button_cancel": "&No"
-  },
   "errors": {
     "no_mic": "No microphone found. Please connect a microphone.",
     "no_loopback": "System audio recording failed. The device may be in exclusive mode.",
-    "ffmpeg_missing": "FFmpeg required for audio conversion. Downloading...",
-    "ffmpeg_failed": "Could not download FFmpeg. Falling back to WAV.",
+    "ffmpeg_missing": "FFmpeg is required for MP3, Opus, FLAC and OGG formats. Use WAV format or place ffmpeg.exe in the program folder.",
     "permission": "Run as administrator for system audio recording.",
     "folder_created": "Recordings folder created.",
     "generic": "An error occurred: {error}"

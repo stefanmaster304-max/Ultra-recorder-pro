@@ -11,7 +11,6 @@
     "resume": "&Retomar",
     "settings": "&Configura\u00e7\u00f5es...",
     "language": "&Idioma...",
-    "check_updates": "&Procurar Atualiza\u00e7\u00f5es",
     "about": "&Sobre...",
     "status_ready": "Pronto para gravar",
     "status_recording": "Gravando... {elapsed}",
@@ -32,7 +31,6 @@
     "audio_format": "Formato de \u00e1udio:",
     "quality": "Qualidade:",
     "include_tts": "Incluir voz do leitor de telas",
-    "auto_check_updates": "Buscar atualiza\u00e7\u00f5es automaticamente",
     "test_mic": "&Testar Microfone",
     "save": "&Salvar",
     "cancel": "&Cancelar",
@@ -66,24 +64,10 @@
     "playing": "Reproduzindo...",
     "done": "Teste de microfone conclu\u00eddo."
   },
-  "updater": {
-    "checking": "Verificando atualiza\u00e7\u00f5es...",
-    "already_latest": "Voc\u00ea j\u00e1 est\u00e1 na vers\u00e3o mais recente ({version}).",
-    "new_version_title": "Atualiza\u00e7\u00e3o Dispon\u00edvel",
-    "new_version_msg": "Vers\u00e3o {version} dispon\u00edvel!\n\nNovidades:\n{changelog}\n\nBaixar e instalar agora?",
-    "downloading": "Baixando atualiza\u00e7\u00e3o... {progress}%",
-    "downloaded": "Atualiza\u00e7\u00e3o baixada. Instalando...",
-    "installed": "Atualiza\u00e7\u00e3o instalada com sucesso!",
-    "error_network": "N\u00e3o foi poss\u00edvel verificar atualiza\u00e7\u00f5es. Verifique sua conex\u00e3o.",
-    "error_checksum": "Download corrompido. Tente novamente.",
-    "button_download": "&Sim",
-    "button_cancel": "&N\u00e3o"
-  },
   "errors": {
     "no_mic": "Nenhum microfone encontrado. Conecte um microfone.",
     "no_loopback": "Falha ao capturar \u00e1udio do sistema. O dispositivo pode estar em modo exclusivo.",
-    "ffmpeg_missing": "FFmpeg necess\u00e1rio para convers\u00e3o de \u00e1udio. Baixando...",
-    "ffmpeg_failed": "N\u00e3o foi poss\u00edvel baixar o FFmpeg. Usando WAV como fallback.",
+    "ffmpeg_missing": "FFmpeg \u00e9 necess\u00e1rio para MP3, Opus, FLAC e OGG. Use WAV ou coloque ffmpeg.exe na pasta do programa.",
     "permission": "Execute como administrador para gravar \u00e1udio do sistema.",
     "folder_created": "Pasta de grava\u00e7\u00f5es criada.",
     "generic": "Ocorreu um erro: {error}"

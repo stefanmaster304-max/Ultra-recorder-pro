@@ -67,9 +67,7 @@ class SettingsDialog(wx.Dialog):
 
     def _create_misc_section(self, sizer):
         self.tts_check = wx.CheckBox(self.panel, label=_("settings.include_tts"))
-        self.auto_update_check = wx.CheckBox(self.panel, label=_("settings.auto_check_updates"))
         sizer.Add(self.tts_check, 0, wx.ALL, 5)
-        sizer.Add(self.auto_update_check, 0, wx.ALL, 5)
 
     def _create_buttons(self, sizer):
         btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -143,7 +141,6 @@ class SettingsDialog(wx.Dialog):
             last = self.quality_combo.GetCount() - 1
             self.quality_combo.SetSelection(last)
         self.tts_check.SetValue(config.get("include_tts", True))
-        self.auto_update_check.SetValue(config.get("auto_check_updates", True))
 
     def apply_settings(self):
         if self.input_devices and self.input_combo.GetSelection() >= 0:
@@ -158,7 +155,6 @@ class SettingsDialog(wx.Dialog):
         config.set("audio_format", self.format_combo.GetStringSelection())
         config.set("quality", self.quality_combo.GetStringSelection())
         config.set("include_tts", self.tts_check.GetValue())
-        config.set("auto_check_updates", self.auto_update_check.GetValue())
 
     def _on_test_mic(self, event):
         self.btn_test.Disable()

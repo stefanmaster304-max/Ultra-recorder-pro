@@ -11,7 +11,6 @@
     "resume": "&Reanudar",
     "settings": "&Configuraci\u00f3n...",
     "language": "&Idioma...",
-    "check_updates": "&Buscar Actualizaciones",
     "about": "&Acerca de...",
     "status_ready": "Listo para grabar",
     "status_recording": "Grabando... {elapsed}",
@@ -32,7 +31,6 @@
     "audio_format": "Formato de audio:",
     "quality": "Calidad:",
     "include_tts": "Incluir voz del lector de pantalla",
-    "auto_check_updates": "Buscar actualizaciones autom\u00e1ticamente",
     "test_mic": "&Probar Micr\u00f3fono",
     "save": "&Guardar",
     "cancel": "&Cancelar",
@@ -66,24 +64,10 @@
     "playing": "Reproduciendo...",
     "done": "Prueba de micr\u00f3fono completa."
   },
-  "updater": {
-    "checking": "Buscando actualizaciones...",
-    "already_latest": "Ya tienes la \u00faltima versi\u00f3n ({version}).",
-    "new_version_title": "Actualizaci\u00f3n Disponible",
-    "new_version_msg": "\u00a1Versi\u00f3n {version} disponible!\n\nNovedades:\n{changelog}\n\n\u00bfDescargar e instalar ahora?",
-    "downloading": "Descargando actualizaci\u00f3n... {progress}%",
-    "downloaded": "Actualizaci\u00f3n descargada. Instalando...",
-    "installed": "\u00a1Actualizaci\u00f3n instalada con \u00e9xito!",
-    "error_network": "No se pudieron buscar actualizaciones. Verifica tu conexi\u00f3n.",
-    "error_checksum": "Descarga corrupta. Intenta de nuevo.",
-    "button_download": "&S\u00ed",
-    "button_cancel": "&No"
-  },
   "errors": {
     "no_mic": "No se encontr\u00f3 ning\u00fan micr\u00f3fono. Conecta un micr\u00f3fono.",
     "no_loopback": "Error al capturar audio del sistema. El dispositivo puede estar en modo exclusivo.",
-    "ffmpeg_missing": "FFmpeg necesario para conversi\u00f3n de audio. Descargando...",
-    "ffmpeg_failed": "No se pudo descargar FFmpeg. Usando WAV como alternativa.",
+    "ffmpeg_missing": "FFmpeg es necesario para MP3, Opus, FLAC y OGG. Usa WAV o coloca ffmpeg.exe en la carpeta del programa.",
     "permission": "Ejecuta como administrador para grabar audio del sistema.",
     "folder_created": "Carpeta de grabaciones creada.",
     "generic": "Ocurri\u00f3 un error: {error}"

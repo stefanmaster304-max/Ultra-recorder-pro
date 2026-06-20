@@ -9,7 +9,6 @@ DEFAULT_CONFIG = {
     "audio_format": "MP3",
     "quality": "320k",
     "include_tts": True,
-    "auto_check_updates": True,
     "recording_mode": "both",
 }
 
